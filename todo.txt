@@ -1,0 +1,19 @@
+imports: 
+	sqlite_jdbc_connector_driver: https://github.com/xerial/sqlite-jdbc
+	
+	
+	
+needs to display a list of 30 city's with details
+	should be read from an sqlite database
+		citys.db
+	
+	could also implement on the fly city aditions
+
+clicking on the city should display a details page
+ability to add new records to the sqlite db
+be able to delete records
+
+
+quality of life features but not needed a splash screen
+display current weather
+beable to favroute the city

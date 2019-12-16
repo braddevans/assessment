@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+//set executable main class
+mainClassName = 'tk.skybread.assessment.Main'
+group 'tk.skybread.assessment'
+
+version '1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+	compile 'com.wirefreethought.geodb:geodb-java-client:1.3.4'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'junit:junit:4.12'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+task Jar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'application jar',
+                'Implementation-Version': version,
+                'Main-Class': 'tk.skybread.assessment.Main'
+    }
+    baseName = 'assessmentapp'
+    from {
+        configurations
+                .compile
+                .findAll { !it.name.endsWith('pom') }
+                .collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
